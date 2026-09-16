@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background-color: #D3E0F2;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(11, 25, 48, 0.09) 1px, transparent 0);
+    background-size: 22px 22px;
+    color: #0B1930;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html.dark body {
+    background-color: #050B18;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(199, 210, 230, 0.06) 1px, transparent 0);
+    background-size: 22px 22px;
+    color: #E7ECF4;
+  }
+
+  ::selection {
+    background-color: #C6A15B;
+    color: #0B1930;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #C6A15B;
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(198, 161, 91, 0.45);
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .ledger-rule {
+    @apply border-t border-ink-200/40 dark:border-ink-500/30;
+  }
+
+  .seal {
+    @apply flex items-center justify-center w-9 h-9 rounded-full border border-brass/50 text-brass text-xs font-display italic shrink-0;
+    box-shadow: inset 0 0 0 1px rgba(198, 161, 91, 0.15);
+  }
+
+  .foil-text {
+    background-image: linear-gradient(115deg, #8F7133 10%, #E7CF94 45%, #C6A15B 65%, #8F7133 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .plaque {
+    @apply relative rounded-lg border border-brass/25 dark:border-brass/20;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 20px 40px -18px rgba(11, 25, 48, 0.35);
+  }
+
+  html.dark .plaque {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 24px 48px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Expanding ring pulse — used behind the profile photo and the WhatsApp button */
+  .pulse-ring {
+    @apply relative;
+  }
+
+  .pulse-ring::before,
+  .pulse-ring::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1.5px solid var(--pulse-color, #C6A15B);
+    animation: pulse-grow 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+    pointer-events: none;
+  }
+
+  .pulse-ring::after {
+    animation-delay: 1.3s;
+  }
+
+  @keyframes pulse-grow {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+}
